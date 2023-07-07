@@ -27,9 +27,10 @@ app.get("/api/hello", function(req, res) {
 app.get('/api/:date', (req, res) => {
   const { date } = req.params;
   // Check if the provided date is a valid date string
-  if (!Date.parse(date)) {
-    res.status(400).json({ error: 'Invalid date format' });
-    return;
+  if (!Date.parse(date) && !(date.length == 13)) {
+    // console.log('oh no')
+    // console.log(date.length == 13)
+    res.status(400).json({ error: 'Invalid date' });
   }
 
   const timestamp = Date.parse(date);

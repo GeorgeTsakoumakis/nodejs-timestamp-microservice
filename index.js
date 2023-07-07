@@ -32,11 +32,18 @@ app.get('/api/:date', (req, res) => {
     // console.log(date.length == 13)
     res.status(400).json({ error: 'Invalid date' });
   }
-
-  const timestamp = Date.parse(date);
-  const utcDate = new Date(timestamp).toUTCString();
-
-  res.json({ unix: timestamp, utc: utcDate });
+  
+  if (Date.parse(date)) {
+    const timestamp = Date.parse(date);
+    // console.log(typeof timestamp)
+    const utcDate = new Date(timestamp).toUTCString();
+    res.json({ unix: timestamp, utc: utcDate });
+  }
+  if (date.length === Date.parse(new Date()).toString().length ) {
+    // console.log(new Date(Number(date)))
+    const utc = new Date(Number(date)).toUTCString();
+    res.json( { unix: Number(date), utc: utc } )
+  }
 });
 
 app.get('/api', (req, res) => {

@@ -39,6 +39,13 @@ app.get('/api/:date', (req, res) => {
   res.json({ unix: timestamp, utc: utcDate });
 });
 
+app.get('/api', (req, res) => {
+  const currentDate = new Date();
+  const stamp = Math.floor(currentDate.getTime()); // Convert milliseconds to seconds
+
+  const date = new Date(stamp).toUTCString();
+  res.json({ unix: stamp, utc: date })
+})
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function() {
